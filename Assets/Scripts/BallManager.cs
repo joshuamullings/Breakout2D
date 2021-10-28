@@ -24,11 +24,11 @@ public class BallManager : MonoBehaviour
 
     #endregion
 
-    public List<BallController> Balls { get; set; }
-    public float InitialBallSpeed = 250f;
+    public List<Ball> Balls { get; set; }
+    public float InitialBallSpeed = 250.0f;
 
-    [SerializeField] BallController _ballPrefab;
-    private BallController _initialBall;
+    [SerializeField] Ball _ballPrefab;
+    private Ball _initialBall;
     private Rigidbody2D _initialBallRidgidbody2D;
     
     private void Start()
@@ -41,8 +41,8 @@ public class BallManager : MonoBehaviour
         if (!GameManager.Instance.IsGameStarted)
         {
             // sick ball to player
-            Vector3 playerPosition = PlayerController.Instance.gameObject.transform.position;
-            Vector3 ballPosition = new Vector3(playerPosition.x, playerPosition.y + 0.25f, 0.0f);
+            Vector3 playerPosition = Player.Instance.gameObject.transform.position;
+            Vector3 ballPosition = new Vector3(playerPosition.x, playerPosition.y + 0.22f, 0.0f);
             _initialBall.transform.position = ballPosition;
 
             if (Input.GetMouseButton(0))
@@ -57,13 +57,13 @@ public class BallManager : MonoBehaviour
     private void InitilizeBall()
     {
         Vector3 startingPosition = new Vector3(
-            PlayerController.Instance.transform.position.x,
-            PlayerController.Instance.transform.position.y + 0.25f);
+            Player.Instance.transform.position.x,
+            Player.Instance.transform.position.y + 0.22f);
 
         _initialBall = Instantiate(_ballPrefab, startingPosition, Quaternion.identity);
         _initialBallRidgidbody2D = _initialBall.GetComponent<Rigidbody2D>();
 
-        this.Balls = new List<BallController>
+        this.Balls = new List<Ball>
         {
             _initialBall
         };

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     #region Singleton
 
-        public static PlayerController Instance => _instance;
+        public static Player Instance => _instance;
         
-        private static PlayerController _instance;
+        private static Player _instance;
 
         private void Awake()
         {

@@ -39,8 +39,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Arena
+  - name: Wall
     uniqueID: 1588741515
+    locked: 0
+  - name: Brick
+    uniqueID: 1655451873
     locked: 0
   - name: Player
     uniqueID: 2892482819
