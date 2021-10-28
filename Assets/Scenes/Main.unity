@@ -916,4 +916,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 30d15a1350e134941b6ff4a309c1a4b4, type: 3}
   - {fileID: 21300000, guid: 27e8ca3007e47cd438861b7b263fc881, type: 3}
   BrickPrefab: {fileID: 6695271656593931710, guid: 633e789eb210d6e4aacff3a44a1aeb7c, type: 3}
+  BrickColours:
+  - {r: 0.057271298, g: 0.5652223, b: 0.9339623, a: 1}
+  - {r: 0.23007846, g: 0.5188679, b: 0.17377181, a: 1}
+  - {r: 0.6132076, g: 0.17644179, b: 0.17644179, a: 1}
+  - {r: 0.8018868, g: 0.47358555, b: 0.2004717, a: 1}
   CurrentLevel: 0

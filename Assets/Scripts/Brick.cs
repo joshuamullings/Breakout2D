@@ -12,15 +12,17 @@ public class Brick : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    public void Init(Transform transform, Sprite sprite, Color colour, int brickType)
+    public void Init(Transform containerTransform, Sprite sprite, Color colour, int hitpoints)
     {
-        
+        transform.SetParent(containerTransform);
+        _spriteRenderer.sprite = sprite;
+        _spriteRenderer.color = colour;
+        Hitpoints = hitpoints;
     }
 
-    private void Start()
+    private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.sprite = BrickManager.Instance.Sprites[Hitpoints - 1]; // delete later
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
