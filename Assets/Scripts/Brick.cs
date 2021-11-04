@@ -7,6 +7,7 @@ using static UnityEngine.ParticleSystem;
 public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
+    public ParticleSystem HitEffect;
     public ParticleSystem DestroyEffect;
     public int Hitpoints = 3;
 
@@ -39,22 +40,23 @@ public class Brick : MonoBehaviour
         if (Hitpoints <= 0)
         {
             OnBrickDestruction?.Invoke(this);
-            SpawnDestroyEffect();
+            SpawnEffect(DestroyEffect, true);
             Destroy(this.gameObject);
         }
         else
         {
+            SpawnEffect(HitEffect, false);
             _spriteRenderer.sprite = BrickManager.Instance.Sprites[Hitpoints - 1];
         }
     }
 
-    private void SpawnDestroyEffect()
+    private void SpawnEffect(ParticleSystem particleEffect, bool colour)
     {
         Vector3 brickPosition = gameObject.transform.position;
         Vector3 spawnPosition = new Vector3(brickPosition.x, brickPosition.y, brickPosition.z - 0.2f);
-        GameObject effect = Instantiate(DestroyEffect.gameObject, spawnPosition, Quaternion.identity);
+        GameObject effect = Instantiate(particleEffect.gameObject, spawnPosition, Quaternion.identity);
         MainModule mm = effect.GetComponent<ParticleSystem>().main;
-        mm.startColor = _spriteRenderer.color;
+        if (colour) mm.startColor = _spriteRenderer.color;
         Destroy(effect, DestroyEffect.main.startLifetime.constant);
     }
 }

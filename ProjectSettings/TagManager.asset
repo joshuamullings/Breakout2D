@@ -42,6 +42,9 @@ TagManager:
   - name: Wall
     uniqueID: 1588741515
     locked: 0
+  - name: Shadow
+    uniqueID: 3445816131
+    locked: 0
   - name: Brick
     uniqueID: 1655451873
     locked: 0
