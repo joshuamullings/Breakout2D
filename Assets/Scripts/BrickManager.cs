@@ -8,7 +8,7 @@ public class BrickManager : MonoBehaviour
     #region Singleton
 
     public static BrickManager Instance => _instance;
-    
+
     private static BrickManager _instance;
 
     private void Awake()
@@ -24,14 +24,17 @@ public class BrickManager : MonoBehaviour
     }
 
     #endregion
-
+    
     public Sprite[] Sprites;
     public Brick BrickPrefab;
     public Color[] BrickColours;
+    public int CurrentLevel;
+
+    public static event Action OnLevelLoaded;
+
     public List<int[,]> LevelsData { get; set; }
     public List<Brick> RemainingBricks { get; set; }
     public int InitialBricksCount { get; set; }
-    public int CurrentLevel;
 
     private GameObject _bricksContainer;
     private int _maxRows = 17;
@@ -40,17 +43,45 @@ public class BrickManager : MonoBehaviour
     private float _initialBrickSpawnPositionY = 3.325f;
     private float _shiftAmount = 0.365f;
 
+    public void LoadLevel(int level)
+    {
+        CurrentLevel = level;
+        ClearRemainingBricks();
+        GenerateBricks();
+    }
+
+    public void LoadNextLevel()
+    {
+        CurrentLevel++;
+
+        if (CurrentLevel >= LevelsData.Count)
+        {
+            GameManager.Instance.ShowVictoryScreen();
+        }
+        else
+        {
+            LoadLevel(CurrentLevel);
+        }
+    }
+
     private void Start()
     {
         _bricksContainer = new GameObject("BricksContainer");
-        RemainingBricks = new List<Brick>();
         LevelsData = LoadLevelsData();
         GenerateBricks();
     }
 
+    private void ClearRemainingBricks()
+    {
+        foreach (Brick brick in RemainingBricks)
+        {
+            Destroy(brick.gameObject);
+        }
+    }
+
     private List<int[,]> LoadLevelsData()
     {
-        TextAsset text = Resources.Load("levels") as TextAsset;
+        TextAsset text = Resources.Load("Levels") as TextAsset;
 
         // split text block into rows
         string[] rows = text.text.Split(
@@ -95,6 +126,8 @@ public class BrickManager : MonoBehaviour
 
     private void GenerateBricks()
     {
+        RemainingBricks = new List<Brick>();
+        
         int[,] currentLevelData = LevelsData[CurrentLevel];
         float currentSpawnX = _initialBrickSpawnPositionX;
         float currentSpawnY = _initialBrickSpawnPositionY;
@@ -137,5 +170,6 @@ public class BrickManager : MonoBehaviour
         }
 
         InitialBricksCount = RemainingBricks.Count;
+        OnLevelLoaded?.Invoke();
     }
 }

@@ -27,10 +27,20 @@ public class BallManager : MonoBehaviour
     public List<Ball> Balls { get; set; }
     public float InitialBallSpeed = 250.0f;
 
-    [SerializeField] Ball _ballPrefab;
+    [SerializeField] private Ball _ballPrefab;
     private Ball _initialBall;
     private Rigidbody2D _initialBallRidgidbody2D;
     
+    public void ResetBall()
+    {
+        foreach (var ball in Balls)
+        {
+            Object.Destroy(ball.gameObject);
+        }
+
+        InitilizeBall();
+    }
+
     private void Start()
     {
         InitilizeBall();

@@ -6,10 +6,11 @@ using static UnityEngine.ParticleSystem;
 
 public class Brick : MonoBehaviour
 {
-    public static event Action<Brick> OnBrickDestruction;
     public ParticleSystem HitEffect;
     public ParticleSystem DestroyEffect;
     public int Hitpoints = 3;
+
+    public static event Action<Brick> OnBrickDestruction;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -30,7 +31,6 @@ public class Brick : MonoBehaviour
     {
         Brick brick = collision.gameObject.GetComponent<Brick>();
         ApplyCollisionLogic(brick);
-
     }
 
     private void ApplyCollisionLogic(Brick brick)
@@ -39,6 +39,7 @@ public class Brick : MonoBehaviour
 
         if (Hitpoints <= 0)
         {
+            BrickManager.Instance.RemainingBricks.Remove(this);
             OnBrickDestruction?.Invoke(this);
             SpawnEffect(DestroyEffect, true);
             Destroy(this.gameObject);
