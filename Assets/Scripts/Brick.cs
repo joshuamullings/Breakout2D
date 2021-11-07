@@ -41,6 +41,7 @@ public class Brick : MonoBehaviour
         {
             BrickManager.Instance.RemainingBricks.Remove(this);
             OnBrickDestruction?.Invoke(this);
+            OnBrickDestroy();
             SpawnEffect(DestroyEffect, true);
             Destroy(this.gameObject);
         }
@@ -49,6 +50,44 @@ public class Brick : MonoBehaviour
             SpawnEffect(HitEffect, false);
             _spriteRenderer.sprite = BrickManager.Instance.Sprites[Hitpoints - 1];
         }
+    }
+
+    private void OnBrickDestroy()
+    {
+        float buffSpawnChance = UnityEngine.Random.Range(0, 100.0f);
+        float debuffSpawnChance = UnityEngine.Random.Range(0, 100.0f);
+        bool alreadySpawned = false;
+
+        if (buffSpawnChance <= BuffManager.Instance.BuffChance)
+        {
+            alreadySpawned = true;
+            Buff newBuff = SpawnBuff(true);
+        }
+
+        if (debuffSpawnChance <= BuffManager.Instance.DebuffChange && !alreadySpawned)
+        {
+            Buff newDebuff = SpawnBuff(false);
+        }
+    }
+
+    private Buff SpawnBuff(bool isBuff)
+    {
+        List<Buff> buff;
+
+        if (isBuff)
+        {
+            buff = BuffManager.Instance.AvalibleBuffs;
+        }
+        else
+        {
+            buff = BuffManager.Instance.AvalibleDebuffs;
+        }
+
+        int buffIndex = UnityEngine.Random.Range(0, buff.Count);
+        Buff prefab = buff[buffIndex];
+        Buff newBuff = Instantiate(prefab, transform.position, Quaternion.identity);
+
+        return newBuff;
     }
 
     private void SpawnEffect(ParticleSystem particleEffect, bool colour)

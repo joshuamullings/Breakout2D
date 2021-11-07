@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BrickManager : MonoBehaviour
@@ -73,7 +74,7 @@ public class BrickManager : MonoBehaviour
 
     private void ClearRemainingBricks()
     {
-        foreach (Brick brick in RemainingBricks)
+        foreach (Brick brick in RemainingBricks.ToList())
         {
             Destroy(brick.gameObject);
         }

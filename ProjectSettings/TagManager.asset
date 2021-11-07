@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - KillWall
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Brick
     uniqueID: 1655451873
+    locked: 0
+  - name: Buff
+    uniqueID: 3607348627
     locked: 0
   - name: Player
     uniqueID: 2892482819

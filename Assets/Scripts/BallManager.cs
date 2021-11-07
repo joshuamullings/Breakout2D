@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BallManager : MonoBehaviour
@@ -31,9 +32,21 @@ public class BallManager : MonoBehaviour
     private Ball _initialBall;
     private Rigidbody2D _initialBallRidgidbody2D;
     
+    public void SpawnBalls(Vector3 position, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Ball spawnedBall = Instantiate(_ballPrefab, position, Quaternion.identity) as Ball;
+            Rigidbody2D spawnedBallRidgidbody2D = spawnedBall.GetComponent<Rigidbody2D>();
+            spawnedBallRidgidbody2D.isKinematic = false;
+            spawnedBallRidgidbody2D.AddForce(new Vector2(0, InitialBallSpeed));
+            Balls.Add(spawnedBall);
+        }
+    }
+
     public void ResetBall()
     {
-        foreach (var ball in Balls)
+        foreach (var ball in Balls.ToList())
         {
             Object.Destroy(ball.gameObject);
         }
