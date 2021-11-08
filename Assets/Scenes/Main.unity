@@ -1739,7 +1739,7 @@ MonoBehaviour:
   ShadowGameObject: {fileID: 1888597727}
   DefaultClamp: {x: 85, y: 515}
   ExtendedShrinkDuration: 10
-  PlayerWidth: 2
+  PlayerWidth: 1
   PlayerHeight: 0.25
 --- !u!1 &1357046148
 GameObject:
@@ -2012,8 +2012,8 @@ MonoBehaviour:
   - {fileID: 7851774201392674284, guid: 59c099aebba3dd04481f8a55029d44f7, type: 3}
   AvalibleDebuffs:
   - {fileID: 385478236262222660, guid: 3fea9c6bdc1e8bb4b98a6a8a545b12ef, type: 3}
-  BuffChance: 5
-  DebuffChance: 2
+  BuffChance: 10
+  DebuffChance: 5
 --- !u!1 &1628464478
 GameObject:
   m_ObjectHideFlags: 0

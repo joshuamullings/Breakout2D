@@ -1,5 +1,3 @@
-using System.Linq;
-
 public class ExtendOrShrinkPlayer : Buff
 {
     public float NewWidth = 1.5f;
