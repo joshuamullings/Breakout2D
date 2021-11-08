@@ -24,17 +24,73 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    public GameObject ShadowGameObject;
     public Vector2 DefaultClamp; // x is left wall, y is right wall
+    public float ExtendedShrinkDuration = 10.0f;
+    public float PlayerWidth = 2.0f;
+    public float PlayerHeight = 0.25f;
 
     private Camera _camera;
     private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _spriteRendererShadow;
+    private BoxCollider2D _boxCollider2D;
     private float _initialPositionY;
     private float _initialSpriteWidthX;
+
+    public bool PlayerIsTransforming { get; set; }
+
+    public void StartWidthAnimation(float newWidth)
+    {
+        StartCoroutine(AnimatePlayerWidth(newWidth));
+    }
+
+    public IEnumerator AnimatePlayerWidth(float width)
+    {
+        PlayerIsTransforming = true;
+        StartCoroutine(ResetPlayerWidthAfterTime(ExtendedShrinkDuration));
+
+        if (width > _spriteRenderer.size.x)
+        {
+            float currentWidth = _spriteRenderer.size.x;
+
+            while (currentWidth < width)
+            {
+                currentWidth += Time.deltaTime * 2.0f;
+                _spriteRenderer.size = new Vector2(currentWidth, PlayerHeight);
+                _spriteRendererShadow.size = new Vector2(currentWidth, PlayerHeight);
+                _boxCollider2D.size = new Vector2(currentWidth, PlayerHeight);
+                yield return null;
+            }
+        }
+        else
+        {
+            float currentWidth = _spriteRenderer.size.x;
+
+            while (currentWidth > width)
+            {
+                currentWidth -= Time.deltaTime * 2.0f;
+                _spriteRenderer.size = new Vector2(currentWidth, PlayerHeight);
+                _spriteRendererShadow.size = new Vector2(currentWidth, PlayerHeight);
+                _boxCollider2D.size = new Vector2(currentWidth, PlayerHeight);
+                yield return null;
+            }
+        }
+
+        PlayerIsTransforming = false;
+    }
+
+    private IEnumerator ResetPlayerWidthAfterTime(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        StartWidthAnimation(PlayerWidth);
+    }
 
     private void Start()
     {
         _camera = FindObjectOfType<Camera>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRendererShadow = ShadowGameObject.GetComponent<SpriteRenderer>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
         _initialPositionY = this.transform.position.y;
         _initialSpriteWidthX = _spriteRenderer.size.x;
     }

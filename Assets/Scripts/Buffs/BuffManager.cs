@@ -27,5 +27,5 @@ public class BuffManager : MonoBehaviour
     public List<Buff> AvalibleBuffs;
     public List<Buff> AvalibleDebuffs;
     [Range(0, 100)] public float BuffChance;
-    [Range(0, 100)] public float DebuffChange;
+    [Range(0, 100)] public float DebuffChance;
 }

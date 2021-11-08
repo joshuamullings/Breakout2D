@@ -14,7 +14,7 @@ public class Brick : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    public void Init(Transform containerTransform, Sprite sprite, Color colour, int hitpoints)
+    public void Initialize(Transform containerTransform, Sprite sprite, Color colour, int hitpoints)
     {
         transform.SetParent(containerTransform);
         _spriteRenderer.sprite = sprite;
@@ -64,7 +64,7 @@ public class Brick : MonoBehaviour
             Buff newBuff = SpawnBuff(true);
         }
 
-        if (debuffSpawnChance <= BuffManager.Instance.DebuffChange && !alreadySpawned)
+        if (debuffSpawnChance <= BuffManager.Instance.DebuffChance && !alreadySpawned)
         {
             Buff newDebuff = SpawnBuff(false);
         }

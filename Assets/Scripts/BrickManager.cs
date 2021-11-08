@@ -148,7 +148,7 @@ public class BrickManager : MonoBehaviour
                         Quaternion.identity
                     ) as Brick;
 
-                    newBrick.Init(
+                    newBrick.Initialize(
                         _bricksContainer.transform,
                         Sprites[brickType - 1],
                         BrickColours[brickType],
