@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     public GameObject ShadowGameObject;
     public Vector2 DefaultClamp; // x is left wall, y is right wall
     public float ExtendedShrinkDuration = 10.0f;
-    public float PlayerWidth = 2.0f;
+    public float PlayerWidth = 1.0f;
     public float PlayerHeight = 0.25f;
 
     private Camera _camera;
