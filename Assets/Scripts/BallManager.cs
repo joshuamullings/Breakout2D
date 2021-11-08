@@ -32,11 +32,17 @@ public class BallManager : MonoBehaviour
     private Ball _initialBall;
     private Rigidbody2D _initialBallRidgidbody2D;
     
-    public void SpawnBalls(Vector3 position, int count)
+    public void SpawnBalls(Vector3 position, int count, bool isLighteningBall)
     {
         for (int i = 0; i < count; i++)
         {
             Ball spawnedBall = Instantiate(_ballPrefab, position, Quaternion.identity) as Ball;
+
+            if (isLighteningBall)
+            {
+                spawnedBall.StartLighteningBall();
+            }
+            
             Rigidbody2D spawnedBallRidgidbody2D = spawnedBall.GetComponent<Rigidbody2D>();
             spawnedBallRidgidbody2D.isKinematic = false;
             spawnedBallRidgidbody2D.AddForce(new Vector2(0, InitialBallSpeed));

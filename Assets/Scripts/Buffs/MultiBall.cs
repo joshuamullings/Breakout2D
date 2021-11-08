@@ -6,7 +6,7 @@ public class MultiBall : Buff
     {
         foreach (Ball ball in BallManager.Instance.Balls.ToList())
         {
-            BallManager.Instance.SpawnBalls(ball.gameObject.transform.position, 2);
+            BallManager.Instance.SpawnBalls(ball.gameObject.transform.position, 2, ball.IsLighteningBall);
         }
     }
 }

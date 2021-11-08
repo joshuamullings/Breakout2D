@@ -10,9 +10,10 @@ public class Brick : MonoBehaviour
     public ParticleSystem DestroyEffect;
     public int Hitpoints = 3;
 
-    public static event Action<Brick> OnBrickDestruction;
-
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _boxCollider2D;
+
+    public static event Action<Brick> OnBrickDestruction;
 
     public void Initialize(Transform containerTransform, Sprite sprite, Color colour, int hitpoints)
     {
@@ -25,19 +26,44 @@ public class Brick : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        Ball.OnLighteningBallEnable += OnLighteningBallEnable;
+        Ball.OnLighteningBallDisable += OnLighteningBallDisable;
+    }
+
+    private void OnLighteningBallEnable(Ball obj)
+    {
+        if (this != null)
+        {
+            _boxCollider2D.isTrigger = true;
+        }
+    }
+
+    private void OnLighteningBallDisable(Ball obj)
+    {
+        if (this != null)
+        {
+            _boxCollider2D.isTrigger = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Brick brick = collision.gameObject.GetComponent<Brick>();
-        ApplyCollisionLogic(brick);
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        ApplyCollisionLogic(ball);
     }
 
-    private void ApplyCollisionLogic(Brick brick)
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Ball ball = collider.gameObject.GetComponent<Ball>();
+        ApplyCollisionLogic(ball);
+    }
+
+    private void ApplyCollisionLogic(Ball ball)
     {
         Hitpoints--;
 
-        if (Hitpoints <= 0)
+        if (Hitpoints <= 0 || (ball != null && ball.IsLighteningBall))
         {
             BrickManager.Instance.RemainingBricks.Remove(this);
             OnBrickDestruction?.Invoke(this);
@@ -98,5 +124,11 @@ public class Brick : MonoBehaviour
         MainModule mm = effect.GetComponent<ParticleSystem>().main;
         if (colour) mm.startColor = _spriteRenderer.color;
         Destroy(effect, DestroyEffect.main.startLifetime.constant);
+    }
+
+    private void OnDisable()
+    {
+        Ball.OnLighteningBallEnable -= OnLighteningBallEnable;
+        Ball.OnLighteningBallDisable -= OnLighteningBallDisable;
     }
 }
