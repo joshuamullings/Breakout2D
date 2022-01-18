@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -849151165
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 530bef20da340184791ebb5f54971b0e, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6695271656593931708}
   - component: {fileID: 6695271656593931711}
   - component: {fileID: 6695271656593931710}
+  - component: {fileID: -5195514031686495853}
   m_Layer: 0
   m_Name: Brick
   m_TagString: Untagged
@@ -154,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1655451873
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 27e8ca3007e47cd438861b7b263fc881, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -207,4 +208,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitEffect: {fileID: 8861670680911860050, guid: 4cc976a0cf1d86543a3cefd0fc2f6270, type: 3}
   DestroyEffect: {fileID: 8861670680911860050, guid: b24d567581fee5d49bf46fd375af3d97, type: 3}
+  HitClip: {fileID: 0}
+  DestroyClip: {fileID: 8300000, guid: ac05f8ae1d99ded43992a649c78a642c, type: 3}
   Hitpoints: 1
+--- !u!114 &-5195514031686495853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6695271656593931707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 256aa8178b45b25e43fb62cde130ac6293c503d703c967ac7fcc8a8500000000
+  m_ShapePath:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -171834

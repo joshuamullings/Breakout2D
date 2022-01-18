@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
 
     public GameObject ShadowGameObject;
     public Vector2 DefaultClamp; // x is left wall, y is right wall
+    public float BallHitModifier = 1500.0f;
     public float ExtendedShrinkDuration = 10.0f;
     public float PlayerWidth = 1.0f;
     public float PlayerHeight = 0.25f;
@@ -36,7 +37,9 @@ public class Player : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
     private float _initialPositionY;
     private float _initialSpriteWidthX;
-
+    private float _previousX = 0.0f;
+    private float _ballHitModifierFactor;
+    
     public bool PlayerIsTransforming { get; set; }
 
     public void StartWidthAnimation(float newWidth)
@@ -99,6 +102,11 @@ public class Player : MonoBehaviour
     {
         Vector2 currentClamps = CalculateCurrentClamps();
         this.transform.position = CalculateNewPosition(currentClamps);
+
+        float currentX = transform.position.x;
+        float _playerSpeed = currentX - _previousX;
+        _ballHitModifierFactor  = BallHitModifier * _playerSpeed;
+        _previousX = currentX;
     }
 
     private Vector2 CalculateCurrentClamps()
@@ -127,11 +135,11 @@ public class Player : MonoBehaviour
 
             if (hitPoint.x < centre.x)
             {
-                ballRidgidbody2D.AddForce(new Vector2(-bounceForceX, BallManager.Instance.InitialBallSpeed));
+                ballRidgidbody2D.AddForce(new Vector2(-bounceForceX + _ballHitModifierFactor, BallManager.Instance.InitialBallSpeed));
             }
             else
             {
-                ballRidgidbody2D.AddForce(new Vector2(bounceForceX, BallManager.Instance.InitialBallSpeed));
+                ballRidgidbody2D.AddForce(new Vector2(bounceForceX + _ballHitModifierFactor, BallManager.Instance.InitialBallSpeed));
             }
         }
     }

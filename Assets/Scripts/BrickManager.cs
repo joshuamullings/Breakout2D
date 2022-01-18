@@ -31,18 +31,18 @@ public class BrickManager : MonoBehaviour
     public Color[] BrickColours;
     public int CurrentLevel;
 
-    public static event Action OnLevelLoaded;
-
-    public List<int[,]> LevelsData { get; set; }
-    public List<Brick> RemainingBricks { get; set; }
-    public int InitialBricksCount { get; set; }
-
     private GameObject _bricksContainer;
     private int _maxRows = 17;
     private int _maxColumns = 12;
     private float _initialBrickSpawnPositionX = -1.96f;
     private float _initialBrickSpawnPositionY = 3.325f;
     private float _shiftAmount = 0.365f;
+
+    public static event Action OnLevelLoaded;
+
+    public List<int[,]> LevelsData { get; set; }
+    public List<Brick> RemainingBricks { get; set; }
+    public int InitialBricksCount { get; set; }
 
     public void LoadLevel(int level)
     {

@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 396913189
+    locked: 0
   - name: Wall
     uniqueID: 1588741515
     locked: 0

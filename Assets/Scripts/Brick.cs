@@ -8,6 +8,8 @@ public class Brick : MonoBehaviour
 {
     public ParticleSystem HitEffect;
     public ParticleSystem DestroyEffect;
+    public AudioClip HitClip;
+    public AudioClip DestroyClip;
     public int Hitpoints = 3;
 
     private SpriteRenderer _spriteRenderer;
@@ -63,17 +65,19 @@ public class Brick : MonoBehaviour
     {
         Hitpoints--;
 
-        if (Hitpoints <= 0 || (ball != null && ball.IsLighteningBall))
+        if (Hitpoints <= 0 || (ball != null && ball.IsLightningBall))
         {
             BrickManager.Instance.RemainingBricks.Remove(this);
             OnBrickDestruction?.Invoke(this);
             OnBrickDestroy();
             SpawnEffect(DestroyEffect, true);
+            SoundManager.Instance.PlayClip(DestroyClip);
             Destroy(this.gameObject);
         }
         else
         {
             SpawnEffect(HitEffect, false);
+            SoundManager.Instance.PlayClip(HitClip);
             _spriteRenderer.sprite = BrickManager.Instance.Sprites[Hitpoints - 1];
         }
     }

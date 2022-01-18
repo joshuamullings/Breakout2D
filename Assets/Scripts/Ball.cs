@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public ParticleSystem LighteningEffect;
-    public bool IsLighteningBall;
+    public ParticleSystem LightningEffect;
+    public GameObject LightningLightEffect;
+    public bool IsLightningBall;
     
     private SpriteRenderer[] _spriteRenderers;
     private float _lighteningBallDuration = 5.0f;
-
+    
     public static event Action<Ball> OnBallKill;
     public static event Action<Ball> OnLighteningBallEnable;
     public static event Action<Ball> OnLighteningBallDisable;
@@ -23,15 +24,16 @@ public class Ball : MonoBehaviour
 
     public void StartLighteningBall()
     {
-        if (!IsLighteningBall)
+        if (!IsLightningBall)
         {
             foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
             {
                 spriteRenderer.enabled = true;
             }
 
-            IsLighteningBall = true;
-            LighteningEffect.gameObject.SetActive(true);
+            IsLightningBall = true;
+            LightningEffect.gameObject.SetActive(true);
+            LightningLightEffect.SetActive(true);
             StartCoroutine(StopLighteningBallAfterTime(_lighteningBallDuration));
             OnLighteningBallEnable?.Invoke(this);
         }
@@ -45,15 +47,16 @@ public class Ball : MonoBehaviour
 
     private void StopLighteningBall()
     {
-        if (IsLighteningBall)
+        if (IsLightningBall)
         {
             foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
             {
                 spriteRenderer.enabled = true;
             }
 
-            IsLighteningBall = false;
-            LighteningEffect.gameObject.SetActive(false);
+            IsLightningBall = false;
+            LightningEffect.gameObject.SetActive(false);
+            LightningLightEffect.SetActive(false);
             OnLighteningBallDisable?.Invoke(this);
         }
     }
